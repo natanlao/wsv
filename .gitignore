@@ -1,0 +1,7 @@
+*.png
+*.db
+__pycache__/
+venv/
+comments/
+posts/
+praw.ini
