@@ -60,9 +60,8 @@ To authenticate to Reddit, you need to:
 ### Collect and analyze data
 
 ```console
-$ python scrape.py wallstreetbets posts
-$ python scrape.py wallstreetbets comments
-$ python load.py wsb.db
-$ python plot.py ...
+$ python scripts/scrape.py wallstreetbets posts
+$ python scripts/scrape.py wallstreetbets comments
+$ python scripts/load.py wallstreetbets  # creates wallstreetbets.db
+$ python plot.py wallstreetbets.db ...
 ```
-
