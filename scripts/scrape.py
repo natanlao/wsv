@@ -23,7 +23,9 @@ class RedditCache:
     def __init__(self, cache_dir: str, subreddit_name: str):
         self.cache_dir = pathlib.Path(cache_dir)
         self.posts_dir = self.cache_dir / subreddit_name / 'posts'
+        self.posts_dir.mkdir(parents=True, exist_ok=True)
         self.comments_dir = self.cache_dir / subreddit_name / 'comments'
+        self.comments_dir.mkdir(parents=True, exist_ok=True)
 
     @staticmethod
     def _yield_dir_json(path: pathlib.Path) -> Generator:

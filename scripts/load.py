@@ -46,6 +46,7 @@ def b36decode(num: str) -> int:
 
 def timestamp_dbformat(epochtime: int) -> str:
     timestamp = datetime.datetime.utcfromtimestamp(epochtime)
+    timestamp -= datetime.timedelta(hours=5)  # UTC -> ET
     return timestamp.strftime('%Y-%m-%dT%H:00:00')  # truncate to the hour
 
 

@@ -63,5 +63,5 @@ To authenticate to Reddit, you need to:
 $ python scripts/scrape.py wallstreetbets posts
 $ python scripts/scrape.py wallstreetbets comments
 $ python scripts/load.py wallstreetbets  # creates wallstreetbets.db
-$ python plot.py wallstreetbets.db ...
+$ python plot.py wallstreetbets.db all plot
 ```
