@@ -60,8 +60,22 @@ To authenticate to Reddit, you need to:
 ### Collect and analyze data
 
 ```console
-$ python scripts/scrape.py wallstreetbets posts
-$ python scripts/scrape.py wallstreetbets comments
+$ python scripts/scrape.py wallstreetbets fetch-posts
+$ python scripts/scrape.py wallstreetbets fetch-comments
 $ python scripts/load.py wallstreetbets  # creates wallstreetbets.db
 $ python plot.py wallstreetbets.db all plot
 ```
+
+## Lessons learned
+
+The initial crawl took about two weeks due to the sheer amount of comments and
+Reddit's API rate limiting. The first time around, I neglected to save scores
+for each comment. This second pass took more than four weeks; in the first pass,
+I was able to retrieve thousands of comments with a single API call, but during
+the second pass, I retrieved each comment one by one, which was more expensive.
+By the time I realized this, I was too busy to fix the problem, and let the
+scraper continue running as written.
+
+I could have avoided this problem by being greedier about what data I was saving
+in the first pass. (In my defense, I was rtunning out of disk space on my
+laptop, but I think I would have made the same mistake even if I wasn't.)

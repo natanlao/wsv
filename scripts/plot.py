@@ -72,6 +72,7 @@ def silver_gamestop_posts(db: Database, outpath: str):
     fig.update_layout(plot_layout('posts', 'term'))
     fig.write_image(outpath)
 
+
 def silver_gme_comments(db: Database, outpath: str):
     gme_x, gme_y = zip(*comments_freq_time(db, 'GME'))
     fig = go.Figure(data=go.Bar(x=gme_x, y=gme_y, name='"GME"'))

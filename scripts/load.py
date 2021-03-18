@@ -15,27 +15,31 @@ class Database:
         self.c = self.conn.cursor()
 
     def init_db(self):
+        # TODO: Brittle coupling
         self.c.execute('''CREATE TABLE posts
-                          (id integer, title text, selftext text, created text)''')
+                          (id integer, title text, selftext text, num_comments integer, score integer, created text)''')
         self.c.execute('''CREATE TABLE comments
-                          (id integer, body text, created text)''')
+                          (id integer, body text, score integer, created text)''')
         self.conn.commit()
 
     def load(self, cache: RedditCache):
         comments = ((
-            b36decode(comment['id']),
-            comment['body'],
-            timestamp_dbformat(comment['created'])
+            b36decode(comment.id),
+            comment.body,
+            comment.score,
+            timestamp_dbformat(comment.created)
         ) for comment in cache.comments)
-        self.c.executemany('INSERT INTO comments VALUES (?, ?, ?)', comments)
+        self.c.executemany('INSERT INTO comments VALUES (?, ?, ?, ?)', comments)
 
         posts = ((
-            b36decode(post['id']),
-            post['title'],
-            post['selftext'],
-            timestamp_dbformat(post['created'])
+            b36decode(post.id),
+            post.title,
+            post.selftext,
+            post.num_comments,
+            post.score,
+            timestamp_dbformat(post.created)
         ) for post in cache.posts)
-        self.c.executemany('INSERT INTO posts VALUES (?, ?, ?, ?)', posts)
+        self.c.executemany('INSERT INTO posts VALUES (?, ?, ?, ?, ?, ?)', posts)
 
         self.conn.commit()
 
